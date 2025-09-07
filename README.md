@@ -119,7 +119,12 @@ Criar uma base de dados que suporte as principais funcionalidades de uma platafo
 - id_lista (PK)  
 - id_usuario (FK)  
 - id_livro (FK)  
-- data_adicao  
+- data_adicao
+
+### Situação do Empréstimo
+- id_situacao (PK)
+- descricao
+- ativo 
 
 ---
 
