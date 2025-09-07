@@ -142,5 +142,3 @@ Criar uma base de dados que suporte as principais funcionalidades de uma platafo
 
 ## 7. Autoria
 Projeto desenvolvido para a disciplina **Laboratório de Banco de Dados**, por Liz Martins.
-
-.
