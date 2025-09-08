@@ -12,17 +12,19 @@ Criar uma base de dados que suporte as principais funcionalidades de uma platafo
 - Controle de empréstimos, histórico e avaliações
 - Gestão de pontos (gamificação)
 - Comunicação entre usuários
+- Lista de desejos personalizada
 
 ---
 
 ## 2. Requisitos da Plataforma
 ### Requisitos Funcionais
-- Usuários devem se cadastrar com dados básicos e endereço.
+- Usuários devem se cadastrar com dados básicos e pelo menos um endereço.
 - Usuários podem cadastrar livros que possuem, vinculados a autores e gêneros.
-- O sistema deve permitir gerenciar empréstimos (status, datas, histórico).
+- O sistema deve permitir gerenciar empréstimos (solicitação, aprovação, entrega, devolução).
 - Deve existir um sistema de **avaliação** e **pontuação** para promover confiança.
 - Usuários podem adicionar livros a uma lista de desejos.
 - Comunicação via mensagens entre usuários deve ser registrada.
+- Sistema de pontuação para incentivar participação ativa
 
 ### Requisitos Não Funcionais
 - Segurança de dados sensíveis (senhas com hash).
@@ -35,13 +37,14 @@ Criar uma base de dados que suporte as principais funcionalidades de uma platafo
 ### Usuários
 - id_usuario (PK)
 - nome  
-- email  
+- email (UNIQUE)
 - senha (hash)  
 - data_nascimento  
 - telefone  
 - reputacao  
 - status_usuario  
-- data_cadastro  
+- data_cadastro
+- pontos_atuais
 
 ### Livros
 - id_livro (PK)  
@@ -49,15 +52,20 @@ Criar uma base de dados que suporte as principais funcionalidades de uma platafo
 - id_autor (FK)  
 - id_genero (FK)  
 - id_usuario_dono (FK)  
-- pontos  
 - id_condicao (FK)  
-- ano_publicacao  
+- ano_publicacao
+- numero_paginas
+- idioma
+- sinopse
+- foto_capa
+- valor_pontos
 - editora  
-- isbn  
+- isbn
+- disponivel (boolean)
 
 ### Autores
 - id_autor (PK)  
-- nome_autor  
+- nome_autor
 - nacionalidade  
 - data_nascimento  
 
@@ -66,65 +74,95 @@ Criar uma base de dados que suporte as principais funcionalidades de uma platafo
 - nome_genero  
 
 ### Condição do Livro
-- id_condicao (PK)  
+- id_condicao (PK)
+- nome_condicao
 - descricao  
 
 ### Pontuação
-- id_pontuacao (PK)  
-- id_usuario (FK)  
-- pontos_totais  
-- pontos_disponiveis  
-- pontos_ganhos  
+- id_transacao_pontos (PK)
+- id_usuario (FK)
+- id_emprestimo (FK) - nullable
+- tipo_transacao (ganho, gasto, bonus, penalidade)
+- quantidade_pontos
+- descricao
+- data_transacao 
 
 ### Empréstimo
-- id_situacao (PK)  
-- descricao  
+- id_emprestimo (PK)
+- id_livro (FK)
+- id_usuario_solicitante (FK)
+- id_usuario_proprietario (FK)
+- id_status (FK)
+- data_solicitacao
+- data_aprovacao
+- data_entrega_prevista
+- data_entrega_real
+- data_devolucao_prevista
+- data_devolucao_real
+- observacoes_proprietario
+- observacoes_solicitante
+- valor_pontos_transacao
 
 ### Avaliação
-- id_avaliacao (PK)  
-- id_usuario_avaliador (FK)  
-- id_usuario_avaliado (FK)  
-- nota  
-- comentario  
-- data_avaliacao  
+- id_avaliacao (PK)
+- id_emprestimo (FK)
+- id_usuario_avaliador (FK)
+- id_usuario_avaliado (FK)
+- tipo_avaliacao (como_proprietario, como_solicitante)
+- nota (1-5)
+- comentario
+- data_avaliacao
+- visivel (boolean)
 
-### Histórico de Trocas
-- id_historico (PK)  
-- id_usuario (FK)  
-- id_livro (FK)  
-- id_situacao (FK)  
-- data_inicio  
-- data_fim  
 
 ### Endereço
 - id_endereco (PK)  
-- id_usuario (FK)  
+- id_usuario (FK)
+- tipo_endereço (residencial, trabalho, outro)
 - cep  
 - rua  
 - numero  
 - complemento  
 - bairro  
 - cidade  
-- estado  
+- estado
+- pais
+- principal
 
 ### Mensagem
-- id_mensagem (PK)  
-- id_remetente (FK)  
-- id_destinatario (FK)  
-- conteudo  
-- data_envio  
-- status  
+- id_mensagem (PK)
+- id_conversa (FK)
+- id_remetente (FK)
+- conteudo
+- data_envio
+- lida (boolean)
+- data_leitura
+- tipo_mensagem (texto, sistema, emprestimo) 
 
 ### Lista de Desejos
-- id_lista (PK)  
-- id_usuario (FK)  
-- id_livro (FK)  
+- id_lista_desejo (PK)
+- id_usuario (FK)
+- id_livro (FK) - nullable
+- titulo_desejado - caso não exista livro cadastrado
+- id_autor (FK) - nullable
+- prioridade (1-5)
 - data_adicao
+- notificar_disponibilidade (boolean)
 
-### Situação do Empréstimo
-- id_situacao (PK)
+### Status do Empréstimo
+- id_status (PK)
+- nome_status (Solicitado, Aprovado, Rejeitado, Em Trânsito, Emprestado, Devolvido, Atrasado, Cancelado)
 - descricao
-- ativo 
+- permite_acao_usuario (boolean)
+
+### Conversas
+- id_conversa (PK)
+- id_usuario1 (FK)
+- id_usuario2 (FK)
+- id_emprestimo (FK) - nullable
+- data_criacao
+- data_ultima_mensagem
+- ativa (boolean)
 
 ---
 
