@@ -167,14 +167,24 @@ Criar uma base de dados que suporte as principais funcionalidades de uma platafo
 ---
 
 ## 4. Relacionamentos
-- Um **usuário** pode cadastrar vários **livros**.  
-- Um **livro** pertence a um **autor** e a um **gênero**.  
-- Um **usuário** pode ter vários **endereços** (ou um principal).  
-- Um **usuário** pode avaliar outro **usuário**.  
-- Um **livro** pode estar em várias situações de empréstimo ao longo do tempo.  
-- O **histórico de trocas** conecta usuários, livros e situações.  
-- Usuários podem enviar **mensagens** entre si.  
-- Usuários podem montar uma **lista de desejos** de livros.  
+Relacionamentos 1:N
+
+  Usuário → Endereços (1:N)
+  Usuário → Livros Cadastrados (1:N)
+  Usuário → Empréstimos como Solicitante (1:N)
+  Usuário → Empréstimos como Proprietário (1:N)
+  Livro → Empréstimos (1:N)
+  Autor → Livros (1:N)
+  Gênero → Livros (1:N)
+
+Relacionamentos N:N
+
+  Usuário ↔ Lista de Desejos ↔ Livros (N:N)
+  Usuário ↔ Conversas ↔ Usuário (N:N)
+
+Relacionamentos 1:1
+
+  Usuário → Saldo de Pontos (1:1)
 
 ---
 
