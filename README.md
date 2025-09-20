@@ -155,15 +155,6 @@ Criar uma base de dados que suporte as principais funcionalidades de uma platafo
 - descricao
 - permite_acao_usuario (boolean)
 
-### Conversas
-- id_conversa (PK)
-- id_usuario1 (FK)
-- id_usuario2 (FK)
-- id_emprestimo (FK) - nullable
-- data_criacao
-- data_ultima_mensagem
-- ativa (boolean)
-
 ---
 
 ## 4. Relacionamentos
