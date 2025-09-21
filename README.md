@@ -44,7 +44,6 @@ Criar uma base de dados que suporte as principais funcionalidades de uma platafo
 - reputacao  
 - status_usuario  
 - data_cadastro
-- pontos_atuais
 
 ### Livros
 - id_livro (PK)  
@@ -57,8 +56,6 @@ Criar uma base de dados que suporte as principais funcionalidades de uma platafo
 - numero_paginas
 - idioma
 - sinopse
-- foto_capa
-- valor_pontos
 - editora  
 - isbn
 - disponivel (boolean)
